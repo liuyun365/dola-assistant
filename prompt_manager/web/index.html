@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>提示词工作台 · Dola 推送</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topbar">
+    <span class="title">提示词工作台</span>
+    <button id="btnAddFolder">+ 添加文件夹</button>
+    <button id="btnAddFile">+ 添加文件</button>
+    <span class="spacer"></span>
+    <label>默认实例：</label>
+    <select id="instanceSel"><option value="">加载中…</option></select>
+    <button id="btnReloadInst" title="重新连接豆啦啦并刷新实例列表">重试连接</button>
+    <label class="chk"><input type="checkbox" id="autoSend"> 推送后自动发送</label>
+    <button id="btnPushAll" class="primary">推送全部</button>
+    <span id="verTag" class="ver-tag">v?</span>
+  </div>
+
+  <div class="main">
+    <!-- 左：文档树 -->
+    <div class="col left">
+      <div class="col-header"><span>文档区</span><span id="rootCount" class="hint"></span></div>
+      <div class="col-body" id="tree"></div>
+    </div>
+
+    <!-- 中：分镜正文 -->
+    <div class="col middle">
+      <div class="col-header"><span id="midTitle">提示词正文</span></div>
+      <div class="col-body" id="shots">
+        <div class="center-msg">从左侧选择一份提示词文件，分镜将在此展开。</div>
+      </div>
+    </div>
+
+    <!-- 右：资产库 + 匹配 -->
+    <div class="col right">
+      <div class="col-header">
+        <span>资产库</span>
+        <span>
+          <button id="btnImportImages">导入图片</button>
+          <button id="btnImportFolder">导入文件夹</button>
+          <button id="btnClearAssets" class="ghost">清空</button>
+        </span>
+      </div>
+      <div class="col-body" id="rightBody">
+        <div class="section">
+          <div class="hint">导入后显示缩略图；图片多时可滚动。点 × 移除。</div>
+          <div class="asset-grid" id="assetGrid"></div>
+        </div>
+        <div class="section">
+          <div class="col-header" style="padding:4px 0; border:none;">
+            <span>资产匹配</span>
+            <span>
+              <button id="btnRematch" class="ghost">重新匹配</button>
+              <button id="btnSubmitMatch" class="primary">提交匹配</button>
+            </span>
+          </div>
+          <div class="hint">左列为提示词中识别到的「资产名」，右列下拉选择其图片（已预先模糊匹配，可改）。提交后，每个分镜按自身引用展开为完整图片集。</div>
+          <div id="matchList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 可视化文件/文件夹选择器 -->
+  <div class="modal hidden" id="pickerModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <span id="pickerTitle">选择</span>
+        <span class="spacer"></span>
+        <select id="pickerDrives"></select>
+        <button id="pickerUp">上一级</button>
+        <button id="pickerCancel">取消</button>
+        <button id="pickerOk" class="primary">确定</button>
+      </div>
+      <div class="modal-body" id="pickerBody"></div>
+      <div class="modal-foot" id="pickerFoot"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- 无可用实例 / 推送失败 对话框 -->
+  <div class="modal hidden" id="instDialog">
+    <div class="modal-box" style="width:420px; height:auto; max-height:none;">
+      <div class="modal-head"><span>推送中断</span></div>
+      <div class="modal-body" style="padding:14px 16px;">
+        <p id="instDialogMsg" style="line-height:1.6;"></p>
+        <p class="hint" style="margin-top:6px;">提示：豆啦啦每个实例只有一个输入框，多个分镜会按顺序轮询分到不同实例，互不覆盖。</p>
+      </div>
+      <div class="modal-foot" style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid var(--border);">
+        <button id="instPause">暂停推送</button>
+        <button id="instResume" class="primary">我已增加可用实例</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

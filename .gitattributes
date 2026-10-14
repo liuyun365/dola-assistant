@@ -1,0 +1,10 @@
+# Windows 批处理必须保持 CRLF（cmd.exe 对 LF-only 批处理会出问题）
+*.bat text eol=crlf
+
+# 其余文本统一 LF
+*.py text eol=lf
+*.md text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.json text eol=lf

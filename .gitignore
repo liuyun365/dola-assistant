@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 运行时状态（本机数据，不入库）
+prompt_manager/state/
+*.log
+
+# 匹配结果（生成在提示词文件旁边）
+*.match.json
+
+# 原件备份（保存时自动生成）
+*.bak
+
+# 私有/第三方内容
+.workbuddy/
+字字插件/
+nul
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store
